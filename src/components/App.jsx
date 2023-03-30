@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, add, remove } from '../redux/store';
+import { increment, decrement } from '../redux/myValue/slice';
+import { add, remove } from '../redux/item/slice';
+
+const Login = lazy(() => import('../pages/loginPage'));
+const Home = lazy(() => import('../pages/Home'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -8,14 +13,14 @@ export const App = () => {
   const item = useSelector(state => state.items);
 
   return (
-    <div>
-      {value}
-      <button onClick={() => dispatch(decrement(10))}>decrement</button>
-
-      <button onClick={() => dispatch(increment(10))}>increment</button>
-      <button onClick={() => dispatch(add('hello world'))}>add</button>
-      <button onClick={() => dispatch(remove())}>remove</button>
-      {item}
-    </div>
+    <>
+    <Routes>
+    <Route path="/" element={<Home />}> 
+    <Route path="login" element={<Login />} />
+    </Route>
+    
+   
+    </Routes>
+    </>
   );
 };
